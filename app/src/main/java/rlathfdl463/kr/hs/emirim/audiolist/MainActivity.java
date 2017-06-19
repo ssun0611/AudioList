@@ -1,7 +1,10 @@
 package rlathfdl463.kr.hs.emirim.audiolist;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,6 +19,9 @@ public class MainActivity extends AppCompatActivity {
     TextView musicName;
     ProgressBar progress;
     String [] musics={"music1","music2","music3","music4","music5"};
+    int [] musicResIds={R.raw.music1,R.raw.music2,R.raw.music3,R.raw.music4,R.raw.music5};
+    int selectedMusicId;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +36,35 @@ public class MainActivity extends AppCompatActivity {
         list.setAdapter(adapter);
         list.setChoiceMode(ListView.CHOICE_MODE_SINGLE); //여러개 항목중 하나만 선택 가능
         list.setItemChecked(0,true);
+        selectedMusicId=musicResIds[0];
+        mediaPlayer=mediaPlayer.create(this,selectedMusicId);
 
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedMusicId=musicResIds[position];
+
+            }
+        });
+
+        butPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.start();
+            }
+        });
+
+        butStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.stop();
+            }
+        });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mediaPlayer.stop();
     }
 }
