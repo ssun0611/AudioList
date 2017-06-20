@@ -57,10 +57,16 @@
             android:layout_height="wrap_content"
             android:text="Playing Music:" />
 
-        <ProgressBar
-            android:id="@+id/progress_music"
+        <TextView
+            android:id="@+id/music_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"/>
+            android:text="Playing Time:" />
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
     </LinearLayout>
 </LinearLayout>
